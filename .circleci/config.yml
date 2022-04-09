@@ -9,7 +9,11 @@ jobs:
     steps:
       - add_ssh_keys:  
           fingerprints:  
-            - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be"
+            - "a5:37:7d:8d:37:5d:9f:a4:80:61:ef:16:6c:36:f4:2a"
       - checkout
-      - run: echo "first hello"
-      - run: npm -v 
+      - run: 
+        name: Install
+        command: npm install
+      - run:  
+        name: Build 
+        command: npm run build
