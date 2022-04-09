@@ -11,9 +11,25 @@ jobs:
           fingerprints:  
             - "a5:37:7d:8d:37:5d:9f:a4:80:61:ef:16:6c:36:f4:2a"
       - checkout
+      - restore_cache:
+          keys:  
+            - node_dependencies  
       - run: 
-        name: Install
-        command: npm install
+          name: Install
+          command: npm install
+      - save_cache:  
+          paths:  
+            - node_modules
+          key: node_dependencies  
       - run:  
-        name: Build 
-        command: npm run build
+          name: Build 
+          command: npm run build
+      - run:
+          name: Prepare shell commands 
+          # 在根目录下新建scripts目录，在此目录新建deploy.sh
+          # shell chmod +x 赋予执行权限
+          # 执行shell脚本 
+          command: chmod +x scripts/deploy.sh
+      - run:
+          name: Run Deploy to Github pages 
+          command: ./scripts/deploy.sh
